@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("../assets/icons/bootstrap-icons.min.css");
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --background-main-1: #1f1f1f;
+  --background-main-2: #fff;
+  --background-main-3: #3f3f3f;
+  --background-main-4: #4f4f4f;
+  --bg-adminroot:#232339;
+  --bg-admin: #22d3ee;
+  --bg-root: #131720;
+  --bg-main: #12151d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+    --background-main-1: #1f1f1f;
+    --background-main-2: #2f2f2f;
+    --background-main-3: #3f3f3f;
+    --background-main-4: #4f4f4f;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+    overflow-x: hidden;
+}
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.container{
+  max-width: 1400px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 1400px) {
+  .container {
+    padding: 0 10px;
+  }
+}
+
+.p-radiobutton .p-radiobutton-box{
+  background: transparent !important;
+  border: 2px solid #ccc;;
+}
+.p-radiobutton-icon{
+  background: #46A7B8;
+}
+
+.admin .p-sidebar{
+  background: var(--bg-root);
+}
+.admin-layout .p-dialog-content, .p-dialog-header{
+  background: var(--bg-root);
+}
+.admin-layout .p-dropdown-items{
+  padding-left: 5px !important;
+}
+.admin-layout .p-dialog-footer{
+  padding-top: 15px;
+}
+.admin-layout .p-tabview-nav{
+  padding-left: 0;
+}
+.admin-layout .p-tabview-panels{
+  background: transparent;
+}
+.admin-layout .p-datatable-header, .p-toolbar, .p-paginator{
+  background: var(--bg-adminroot);
+}
+.admin-layout .p-datatable .p-datatable-thead > tr > th, tr{
+  background: var(--bg-adminroot);
+}
+.admin .p-sidebar-content, .admin .p-sidebar-header{
+  background: #2c2c45 !important;
+}
+.admin-layout .p-datatable .p-datatable-tbody > tr > th, tr.p-highlight{
+  background: #22d3ee !important;
+}

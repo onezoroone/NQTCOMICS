@@ -1,0 +1,71 @@
+.groupRanking{
+    background: #2f2f2f;
+    color: #fff;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.groupRanking span{
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+}
+.groupRanking span.activeRanking{
+    background: #4693B8;
+}
+.itemRanking{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    overflow: hidden;
+}
+.bodycontentRanking{
+    height: 100%;
+    width: 60%;
+}
+.bodycontentRanking *{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.contentRanking{
+    margin-top: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.dot{
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #666;
+    display: inline-block;
+    margin: 3px 6px;
+}
+.endContentRanking{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 100%;
+}
+.numberRanking{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #2f2f2f;
+}
+.viewsRanking{
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 2px;
+    color: #aaa;
+}

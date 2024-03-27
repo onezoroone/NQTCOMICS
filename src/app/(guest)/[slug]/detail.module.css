@@ -1,0 +1,98 @@
+/* .img{
+    width: 224px;
+    height: 338px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
+    border: 5px solid #fff;
+} */
+.genres{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.genres a{
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.genres a:hover{
+    background: #fff;
+}
+.totalIndex{
+    display: flex;
+    gap: 15px;
+}
+.totalIndex span{
+    display: flex;
+    gap: 5px;
+    font-size: 16px;
+}
+.btn{
+    white-space: nowrap;
+    background: #ffd702 !important;
+    border-color: #ffd702 !important;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 18px;
+}
+.btnFollow{
+    white-space: nowrap;
+    background: #3f3f3f !important;
+    border-color: #3f3f3f !important;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 17px;
+
+}
+.btnFollow i{
+    margin-right: 5px;
+}
+.btn i{
+    margin-right: 5px;
+}
+.emoji{
+    padding-top: 20px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+.emoji>div{
+    cursor: pointer;
+}
+.emoji>div:hover{
+    transform: scale(1.1);
+}
+@media screen and (max-width:992px) {
+    .contentmain{
+        padding: 40px 10px;
+    }
+    .centercontent{
+        justify-content: center;
+        text-align: center;
+    }
+    .genres{
+        justify-content: center;
+    }
+    .totalIndex{
+        justify-content: center;
+    }
+}
+@media screen and (max-width:500px) {
+    .btn{
+        padding: 10px;
+        font-weight: 500;
+        font-size: 15px;
+    }
+    .btnFollow{
+        font-size: 15px;
+    }
+    .headepisodes{
+        flex-direction: column;
+        gap: 10px;
+        align-items: start;
+    }
+}

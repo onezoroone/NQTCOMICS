@@ -1,0 +1,98 @@
+.listCategories{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.listCategories a{
+    color: #000;
+    padding: 5px;
+    padding-right: 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 14px;
+}
+.listCategories a:nth-child(n+5) {
+    background: #2f2f2f;
+    color: #fff;
+    padding: 5px;
+}
+.listCategories a:nth-child(n+5):hover{
+    background: #4693B8;
+}
+.listcomic{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    color: #fff;
+}
+/* .listcomic img{
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    height: 270px;
+    border-radius: 5px 5px 0 0;
+} */
+.updated{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #17a2b8;
+    border-radius: 5px;
+    color: #fff;
+    padding: 3px 5px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.views{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 14px;
+    width: 100%;
+    padding: 10px 15px;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .8) 67%, rgba(0, 0, 0, .8));
+}
+.pagination{
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.pagination a:nth-child(1){
+    background: #4693B8;
+    color: #fff;
+}
+.pagination a{
+    padding: 12px 19px;
+    font-size: 16px;
+    border-radius: 5px;
+    background: #3f3f3f;
+    color: #999;
+    font-weight: 700;
+}
+.pagination a:nth-child(4){
+    padding: 10px 17px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+.btnslidenext, .btnslideprev{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: #fff;
+    background: gray;
+}
+
+@media screen and (max-width:750px) {
+    .listcomic{
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .listcomic{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,71 @@
+.navigationbottom{
+    background: #222;
+    margin: 40px 0;
+    padding: 12px;
+    color: #fff;
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+.navigationbottom a{
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    background: #444 !important;
+    padding: 8px 12px;
+    border-radius: 5px;
+    align-items: center;
+    gap: 5px;
+}
+.navigationbottom a i{
+    font-size: 20px;
+    margin-top: 3px;
+    font-weight: 900 !important;
+    transition: all 0.3s ease;
+}
+.navigationbottom a:hover{
+    transform: scale(1.1);
+}
+.uptop{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    border: 1px solid #fff;
+    padding: 10px 13px;
+    color: orangered;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.uptop:hover{
+    background: #fff;
+    color: #000;
+}
+@media screen and (max-width: 1400px){
+    .mainread{
+        margin-left: 0 !important;
+    }
+}
+
+.loader {
+    width: fit-content;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 30px;
+    background: radial-gradient(circle closest-side,#000 94%,#0000) right/calc(200% - 1em) 100%;
+    animation: l24 1s infinite alternate linear;
+}
+.loader::before {
+    content: "Đang tải...";
+    line-height: 1em;
+    color: #0000;
+    background: inherit;
+    background-image: radial-gradient(circle closest-side,#c471f5 94%,#fff);
+    -webkit-background-clip:text;
+            background-clip:text;
+}
+  
+@keyframes l24{
+    100%{background-position: left}
+}

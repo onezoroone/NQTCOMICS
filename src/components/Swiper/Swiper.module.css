@@ -1,0 +1,251 @@
+.maincarousel{
+    overflow: hidden;
+}
+.maincarousel>div{
+    height: 450px;
+}
+.leftmaincarousel{
+    width: 50%;
+}
+.centermaincarousel{
+    width: 40%;
+    display: flex;
+    justify-content: flex-end;
+}
+.rightmaincarousel{
+    width: 10%;
+    height: 100%;
+}
+.slidecover{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    opacity: .4;
+    width: 100%;
+    height: 100%;
+}
+/* .slidecover img{
+    max-height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: blur(8px);
+    opacity: 1;
+    z-index: -1;
+} */
+.slidecategory{
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    color: #fff;
+    flex-wrap: wrap;
+}
+.slidecategory span{
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 2px 4px;
+    font-size: 12px;
+}
+.slidebtnread{
+    background: #ffd702;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #000;
+    font-weight: 500;
+}
+.slide-btn-info{
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #000;
+    font-weight: 500;
+}
+.slideposter{
+    width: 400px;
+    height: 600px;
+}
+.mangaposter{
+    display: inline-block;
+    transform: rotate(15deg);
+    border: 20px solid #fff;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 30px 30px rgba(0, 0, 0, .2);
+}
+/* .mangaposter img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+} */
+.btnslidenext, .btnslideprev{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: #fff;
+    background: gray;
+}
+
+/* ---------------------Trending------------------- */
+.item{
+    position: relative;
+    display: flex;
+    background: linear-gradient(0deg, rgba(79, 79, 79, 0) 0, #4f4f4f 100%);
+    max-height: 250px;
+    cursor: pointer;
+}
+@keyframes animatezoom{from{transform:scale(1.2)} to{transform:scale(1)}}
+.hiddenitem{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #4f4f4f;
+    animation:animatezoom 0.3s;
+    padding: 10px;
+    color: #fff;
+    flex-direction: column;
+}
+.hiddenitem span{
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+}
+.item:hover .hiddenitem{
+    display: flex;
+}
+.item1:hover .hiddenitem{
+    display: flex;
+}
+/* .item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+} */
+
+.number{
+    padding: 10px;
+    writing-mode: vertical-lr;
+    display: flex;
+    transform: rotate(180deg);
+    gap: 10px;
+    color: #fff;
+    width: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 7px;
+}
+.number span{
+    font-size: 35px;
+    font-weight: 1000;
+}
+.number div{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 200px;
+    font-size: 18px;
+    line-height: 1.4em;
+    font-weight: 500;
+}
+
+/* ---------------------Carousel-------------------  */
+.item1{
+    color: #fff;
+    overflow: hidden;
+    cursor: pointer;
+}
+/* .item1 img{
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 5px;
+} */
+
+/* ---------------------Responsive------------------- */
+@media screen and (max-width: 1150px) {
+    .descontent{
+        display: none;
+    }
+}
+@media screen and (max-width:900px) {
+    .rightmaincarousel{
+        display: none;
+    }
+    .centermaincarousel{
+        width: 50%;
+    }
+}
+@media screen and (max-width:750px) {
+    .slidecategory{
+        display: none;
+    }
+}
+@media screen and (max-width: 650px) {
+    .containercarouselmain{
+        padding: 0 !important;
+    }
+    .contentslide{
+        padding: 10px !important;
+    }
+    .leftmaincarousel{
+        width: 60%;
+    }
+    .leftmaincarousel h2{
+        font-size: 20px;
+    }
+    .leftmaincarousel h5{
+        font-size: 18px;
+    }
+    .centermaincarousel{
+        position: absolute;
+        width: 100%;
+        left: 80px;
+    }
+    .mangaposter img{
+       width: 300px;
+    }
+    .slideposter{
+        width: 300px;
+    }
+    .slidebtnread{
+        padding: 7px 15px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .maincarousel>div{
+        height: 300px;
+    }
+    .item{
+        height: 220px;
+    }
+    .number div{
+        font-size: 15px;
+    }
+    .number span{
+        font-size: 28px;
+    }
+    .listcomic{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .centermaincarousel{
+        left: 150px;
+    }
+    /* .centermaincarousel img{
+        width: 250px;
+    } */
+    .slideposter{
+        height: 420px;
+    }
+}
