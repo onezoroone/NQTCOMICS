@@ -90,7 +90,7 @@ function Filter({data}: {data: any}) {
     }
     const pages = Array.from({ length: page }, (_, index) => index + 1);
     return (  
-        <main className="flex flex-col items-center py-5" style={{background:'var(--background-main-1)'}}>
+        <main className="flex flex-col items-center py-5 dark:bg-main1 bg-light1">
             <div className={styles.container}>
                 <div className={`${styles.breadcrumb} breadcrumb w-full`}>
                     <Link href="/">Trang chủ</Link>
@@ -209,7 +209,7 @@ function Filter({data}: {data: any}) {
                             ))} 
                         </div>
                         {!filterData || filterData.length == 0 && 
-                        <div className="text-white w-100 text-center">
+                        <div className="text-black dark:text-white w-100 text-center">
                             <h4>Không có kết quả phù hợp.</h4>  
                         </div>}
                         <div className={styles.pagination}>

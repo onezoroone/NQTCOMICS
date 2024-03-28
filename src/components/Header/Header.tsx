@@ -190,7 +190,7 @@ function HeaderGuest() {
                         <div className="clearfix"></div>
                         <Dialog visible={visible} modal onHide={() => setVisible(false)}
                         content={({ hide }) => (
-                        <div className="flex flex-col px-8 py-5 gap-4 rounded-xl" style={{background: 'var(--background-main-2)'}}>
+                        <div className="flex flex-col px-8 py-5 gap-4 rounded-xl bg-white dark:bg-main2">
                             <div className="flex justify-center w-full"><Image src="/logo1.png" alt="logo" width={200} height={100} /></div>
                             <form onSubmit={handleLogin} className="flex flex-col gap-4" autoComplete="off">
                                 <input type="email" autoComplete="off" value={email} onChange={(e) => setEmail(e.target.value)} className={styles.inputform} placeholder="Nhập email" />
@@ -207,7 +207,7 @@ function HeaderGuest() {
                         </Dialog>
                         <Dialog visible={visible1} modal onHide={() => setVisible1(false)} 
                         content={({ hide }) => (
-                            <div className="flex flex-col px-8 py-5 gap-4 rounded-xl" style={{background: 'var(--background-main-2)'}}>
+                            <div className="flex flex-col px-8 py-5 gap-4 rounded-xl bg-white dark:bg-main2">
                                 <div className="flex justify-center w-full"><Image src="/logo1.png" alt="logo" width={200} height={100} /></div>
                                 <form onSubmit={handleSignUp} className="flex flex-col gap-4" autoComplete="off">
                                     <input type="text" autoComplete="off" value={name} onChange={(e) => setName(e.target.value)} className={styles.inputform} placeholder="Nhập tên" />

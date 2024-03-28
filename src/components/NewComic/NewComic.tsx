@@ -7,6 +7,8 @@ import { Editor } from "primereact/editor";
 import { MultiSelect } from 'primereact/multiselect';
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
+import axiosClient from "@/libs/axiosClient";
+
 function NewComic() {
     const [name, setName] = useState("");
     const [othername, setOthername] = useState("");
@@ -18,7 +20,7 @@ function NewComic() {
     const [description, setDescription] = useState("");
     const [selectedCategories, setSelectedCategories] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [chapters, setChapters] = useState(null);
+    const [chapters, setChapters] = useState<any>(null);
     const [nameServer, setNameServer] = useState("");
     const searchParams = useSearchParams();
     const toast = useRef(null);
@@ -84,29 +86,64 @@ function NewComic() {
             (toast.current as any).show({severity:'warn', summary: 'Cảnh Báo', detail:'Không được để trống tên và thể loại phim.', life: 3000});
         } else {
             setLoading(true);
-            const headers = new Headers();
-            headers.append('Content-Type', 'application/json');
-            headers.append('Authorization', 'Bearer ' + localStorage.getItem('token') || '');
-            await fetch("/api/comics/v1/crawlComic",{
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify({
-                    name, othername, slug, chapter, status, image, author, description, selectedCategories, chapters, nameServer
-                })
+            let count = 0;
+            await axiosClient.post("/api/comics/v1/crawlComic",{
+               name, othername, slug, chapter, status, image, author, description, selectedCategories, chapters, nameServer
             })
-           .then(res => res.json())
-              .then(data => {
-                if(data.status === "error") {
-                    (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:data.message, life: 3000});
-                }else{
-                    (toast.current as any).show({severity:'success', summary: 'Thành công', detail:data.message, life: 3000});
-                    router.push('/admin/list-comics');
-                }
+            .then((response) => {
+                (toast.current as any).show({severity:'success', summary: 'Thành công', detail: response.data.message, life: 3000});
+                for(let i = 0; i < chapters.length; i++){
+                    if(nameServer == "OTRUYEN"){
+                        axiosClient.get(chapters[i].chapter_api_data)
+                        .then((res) => {
+                            axiosClient.post("/api/comics/v1/crawlChapter",{
+                                idComic: response.data.comicId,
+                                chapter: res.data.data,
+                                nameServer
+                            })
+                            .then((res) => {
+                                (toast.current as any).show({severity:'success', summary: 'Thành công', detail:res.data.message, life: 3000});
+                                count++;
+                                if(count == chapters.length){
+                                    setLoading(false);
+                                    router.push('/admin/list-comics');
+                                }
+                            })
+                            .catch((err) => {
+                                (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:err.response.data.message, life: 3000});
+                            })
+                        })
+                    }else if(nameServer == "NCOMICS"){
+                        axiosClient.get('https://comics-api.vercel.app/comics/' + slug + '/chapters/' + chapters[i].id)
+                        .then((res) => {
+                            axiosClient.post("/api/comics/v1/crawlChapter",{
+                                idComic: response.data.comicId,
+                                chapter: res.data.images,
+                                nameServer,
+                                chapterName: chapters[i].name,
+                            })
+                            .then((res) => {
+                                (toast.current as any).show({severity:'success', summary: 'Thành công', detail:res.data.message, life: 3000});
+                                count++;
+                                if(count == chapters.length){
+                                    setLoading(false);
+                                    router.push('/admin/list-comics');
+                                }
+                            })
+                            .catch((err) => {
+                                (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:err.response.data.message, life: 3000});
+                            })
+                        })
+                    }
+                }        
             })
-            .catch(() => {
-                (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:'Truyện đã tồn tại hoặc quá thời gian chờ.', life: 3000});
+            .catch((err) => {
+                (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:err.response.data.message, life: 3000});
             })
-            setLoading(false);
+            // if(count == chapters.length - 1){
+            //     setLoading(false);
+            //     router.push('/admin/list-comics');
+            // }
         }
     }
     return (  
