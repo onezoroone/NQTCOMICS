@@ -6,6 +6,7 @@ import Chapters from "@/components/Chapters/Chapters";
 import { notFound } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from 'next';
 import LayoutRoot from "@/app/(guest)/layoutGuest";
+import ButtonFollow from "@/components/BtnFollow/ButtonFollow";
 type Props = {
     params: { slug: string }
     searchParams: { [key: string]: string | string[] | undefined }
@@ -59,7 +60,7 @@ async function Detail({params}: Props) {
     }
     return (  
         <LayoutRoot>
-        <section style={{background: '#2f2f2f', color:'#fff'}}>
+        <section className="dark:bg-main2 bg-light4 text-black dark:text-white">
             <div className="container">
                 <div className="py-20">
                     <div className="xl:flex">
@@ -68,20 +69,21 @@ async function Detail({params}: Props) {
                         </div>
                         <div className={`${styles.centercontent} xl:w-7/12 w-full px-3 mb-4`}>
                             <h2 className="font-bold text-center xl:text-start text-2xl italic mb-2">{data.comic.title}</h2>
-                            <div className={`${styles.genres} text-sm justify-center xl:justify-start`}>
+                            <div className={`${styles.genres} text-sm justify-center xl:justify-start `}>
                                 {data.genres.map((genre: any, index: number) => (
-                                    <Link href={`/tim-kiem-nang-cao?the-loai=${genre.slug}`} key={index} className={styles.genre}>{genre.name}</Link>
+                                    <Link href={`/tim-kiem-nang-cao?the-loai=${genre.slug}`} key={index} className={`${styles.genre} hover:bg-slate-400`}>{genre.name}</Link>
                                 ))}
                             </div>
                             <div className="text-sm text-center xl:text-start" dangerouslySetInnerHTML={{ __html: data.comic.description }} />
                             <div className={`${styles.totalIndex} justify-center xl:justify-start`}>
                                 <span className="mr-3"><i className="bi bi-eye-fill" style={{color:'#0ea5e9'}}></i>{data.comic.views}</span>
-                                <span className="mr-3"><i className="bi bi-bookmark-check-fill" style={{color:'green'}}></i>{data.comic.votes}</span>
+                                <span className="mr-3"><i className="bi bi-bookmark-check-fill" style={{color:'green'}}></i>{data.comic.follows}</span>
                             </div>
                             <div className="mt-3 flex gap-1 xl:justify-start justify-center">
                                 <Link href={`/${params.slug}/${data.chapters[0].slug}`} className={styles.btn}><i className="bi bi-eye-fill"></i>Đọc Ngay</Link>
-                                <Link href={`/${params.slug}/${data.chapters[data.chapters.length - 1].slug}`} className={styles.btn}><i className="bi bi-eye-fill"></i>Đọc Từ Đầu</Link>
-                                <Link href={`/`} className={styles.btnFollow}><i className="bi bi-bookmark-fill"></i>Theo Dõi</Link>
+                                {data.history.length ==0 ? <Link href={`/${params.slug}/${data.chapters[data.chapters.length - 1].slug}`} className={styles.btn}><i className="bi bi-eye-fill"></i>Đọc Từ Đầu</Link> :
+                                <Link href={`/${params.slug}/${data.history.slug}`} className={styles.btn}><i className="bi bi-eye-fill"></i>Đọc Tiếp</Link>}
+                                <ButtonFollow check={data.follow} id={data.comic.id} />
                             </div>
                         </div>
                         <div className={`xl:w-3/12 w-full flex flex-col gap-1`}>

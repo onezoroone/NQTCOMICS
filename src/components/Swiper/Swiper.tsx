@@ -20,14 +20,14 @@ export function MainCarousel({data}: {data: any}) {
                     </div>
                     <div className={`h-full p-5 relative overflow-hidden flex items-center ${styles.contentslide}`}>
                         <div className={styles.leftmaincarousel}>
-                            <h5 className="text-white font-bold text-lg">{item.chapter}</h5>
-                            <Link href={item.slug}><h2 className="text-2xl" style={{fontWeight: '800'}}>{item.title}</h2></Link>
-                            <div className={`${styles.descontent} text-white`}>
+                            <h5 className="text-neutral-950 dark:text-white font-bold text-lg">{item.chapter}</h5>
+                            <Link href={item.slug}><h2 className="text-2xl bg-color-beauty" style={{fontWeight: '800'}}>{item.title}</h2></Link>
+                            <div className={`${styles.descontent} text-neutral-950 dark:text-white`}>
                             <div className="text-sm" dangerouslySetInnerHTML={{ __html: item.description.length > 250 ? `${item.description.substring(0, 250)}...` : item.description }} />
                             </div>
                             <div className={styles.slidecategory}>
                                 {item.genres.map((genre: any, key: number)=>(
-                                    <span key={key}>{genre.name}</span>
+                                    <span className="bg-cyan-400 dark:bg-transparent dark:border-2" key={key}>{genre.name}</span>
                                 ))}
                             </div>
                             <div className="mt-5">
@@ -86,7 +86,7 @@ export function CarouselTrending({data}: {data: any}) {
                     <div className="relative w-full">
                         <Image fill sizes="(max-width: 768px) 50vw, 60vw" src={item.thumbnail} alt={item.title} style={{objectFit:'cover'}} />
                         <div className={styles.hiddenitem}>
-                            <h6 className="uppercase" style={{fontSize:'13px'}}>{item.title}</h6>
+                            <h6 className="uppercase " style={{fontSize:'13px'}}>{item.title}</h6>
                             <div className="flex flex-1 flex-col">
                                 <span><i className="bi bi-star-fill"></i>{item.rating != 0 ? item.rating : 'N/A'}</span>
                                 <span><i className="bi bi-eye-fill"></i>{item.views}</span>
@@ -136,7 +136,7 @@ export function Carousel({data}: {data: any}) {
                     <SwiperSlide key={index}>
                     <div className={styles.item1} title={item.title}>
                         <div className="relative w-full h-full overflow-hidden">
-                            <Image height={210} width={170} src={item.thumbnail} alt={item.title} style={{objectFit:'cover', maxHeight:'210px', marginBottom:'5px'}} />
+                            <Image height={220} width={180} src={item.thumbnail} alt={item.title} style={{objectFit:'cover', maxHeight:'220px', marginBottom:'5px'}} />
                             <div className={styles.hiddenitem}>
                                 <h6 className="uppercase" style={{fontSize:'13px'}}>{item.title}</h6>
                                 <div className="flex flex-1 flex-col">
@@ -150,7 +150,7 @@ export function Carousel({data}: {data: any}) {
                             </div>
                         </div>
                         <div>
-                            <Link href={`/${item.slug}`}><h6 className="font-bold">{item.title}</h6></Link>
+                            <Link href={`/${item.slug}`}><h6 className="dark:font-bold text-slate-950 dark:text-white">{item.title}</h6></Link>
                             <div className="text-sm" style={{whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis', color:'#999'}}>
                                 {item.genres.map((genre: any, key: number)=>(
                                     <span key={key}>{genre.name}, </span>

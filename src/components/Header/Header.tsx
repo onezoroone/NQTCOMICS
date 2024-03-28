@@ -22,10 +22,25 @@ function HeaderGuest() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
     const [login, setLogin] = useState(false);
+    const [isDark, setIsDark] = useState(true);
+    const [activeProfile, setActiveProfile] = useState(false);
     useEffect(() => {
         setSearchResults([]);
         setSearchTerm('');
         if(localStorage.getItem('token')) setLogin(true);
+        if(localStorage.getItem('theme')){
+            if(localStorage.getItem('theme') === 'dark'){
+                document.documentElement.classList.add('dark');
+                setIsDark(true);
+            }else{
+                document.documentElement.classList.remove('dark');
+                setIsDark(false);
+            }
+        }else{
+            localStorage.setItem('theme', 'dark');
+            document.documentElement.classList.add('dark');
+            setIsDark(true);
+        }
     }, [pathname]);
     const handleInputChange = (event: any) => {
         setSearchTerm(event.target.value);
@@ -60,6 +75,8 @@ function HeaderGuest() {
         else{
             await axios.post("/api/auth/v1/login", {
                email, password
+            },{
+                withCredentials: true
             })
             .then((response) => {
                 localStorage.setItem('token', response.data.token);
@@ -99,10 +116,21 @@ function HeaderGuest() {
             });
         }
     }
+    const handleChangeTheme = () => {
+        if(isDark){
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            setIsDark(false);
+        }else{
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            setIsDark(true);
+        }
+    }
     return (  
         <header className={styles.header}>
             <div className="container flex items-center h-max">
-                <div className={styles.togglesidebar}><i className="bi bi-list fs-1"></i></div>
+                {/* <div className={styles.togglesidebar}><i className="bi bi-list fs-1"></i></div> */}
                 <Link href="/">
                     <Image width={170} height={50} src="/logo.png" alt="logo" priority />
                     <div className="clear-none"></div>
@@ -129,8 +157,8 @@ function HeaderGuest() {
                             <div className={`${styles.searchresult} ${searchResults ? '' : 'visually-hidden'}`}>
                                 <ul className="list-group w-full rounded-lg bg-white absolute" style={{top:'100%', zIndex:'100'}}>
                                     {searchResults.length != 0 && searchResults.map((item: any, index : number) => (
-                                        <li key={index} className="flex items-center p-2" title={item.title}>
-                                            <Link href={`/${item.slug}`}><Image src={item.thumbnail} width={70} height={100} alt={item.title} style={{marginRight:'10px'}} /></Link>
+                                        <li key={index} className="flex items-center p-2 gap-2" title={item.title}>
+                                            <Link href={`/${item.slug}`}><Image src={item.thumbnail} width={70} height={100} alt={item.title} /></Link>
                                             <Link href={`/${item.slug}`}>{item.title}</Link>
                                         </li>
                                     ))}
@@ -139,11 +167,23 @@ function HeaderGuest() {
                         </div>
                     </div>
                     <div className={styles.toggle} onClick={() => setActive(!active)}><i className={`${styles.custom} bi bi-search`}></i></div>
+                    {!isDark ? <i onClick={handleChangeTheme} className="bi bi-moon-fill mr-2 lg:ml-0 ml-2 text-3xl cursor-pointer"></i> : <i onClick={handleChangeTheme} className="bi bi-brightness-high-fill mr-2 lg:ml-0 ml-2 text-3xl cursor-pointer"></i>}
                     <div id="login-state" className="float-left">
                         <div id="user-slot">
                             <div className="header_right-user logged">
                                 {!login ? <button onClick={() => setVisible(true)} className={`${styles.btnuser} btn btn-login`}><i className="bi bi-person-circle" style={{marginRight:'5px'}}></i><span>Đăng Nhập</span></button> :
-                                <i className="bi bi-person-circle text-3xl lg:ml-0 ml-3"></i>
+                                <div className="relative">
+                                    <i className="bi bi-person-circle text-3xl cursor-pointer" onClick={() => setActiveProfile(!activeProfile)}></i>
+                                    {activeProfile && 
+                                    <div className="absolute w-32 bg-cyan-400 z-10 px-2 right-0 select-none">
+                                        <ul className="list-group">
+                                            <li className="py-1"><Link href="/">Hồ sơ</Link></li>
+                                            <li className="py-1"><Link href="/">Đã xem</Link></li>
+                                            <li className="py-1"><Link href="/">Đã theo dõi</Link></li>
+                                            <li className="py-1"><Link href="/">Đăng xuất</Link></li>
+                                        </ul>
+                                    </div>}
+                                </div>
                                 }
                             </div>
                         </div>
@@ -206,7 +246,7 @@ function HeaderGuest() {
                         <ul className="list-group absolute w-full p-2 rounded-lg mt-1 bg-white" style={{top:'100%'}}>
                             {searchResults.map((item: any, index: number) => (
                                 <li key={index} className="flex items-center gap-2" title={item.title}>
-                                    <Image  src={item.thumbnail} width={70} height={100} alt={item.title} />
+                                    <Image src={item.thumbnail} width={70} height={100} alt={item.title} />
                                     <Link href={`/${item.slug}`}>{item.title}</Link>
                                 </li>
                             ))}

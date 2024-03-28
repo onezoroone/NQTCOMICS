@@ -29,14 +29,14 @@ export default function RootLayout({
       />
       <HeaderGuest />
       {children}
-      <footer style={{ background: 'var(--background-main-1)', paddingTop: '100px' }}>
+      <footer className="dark:bg-main1 bg-cyan-700" style={{ paddingTop: '100px' }}>
         <div className="container">
-          <div className="flex justify-center flex-col items-center text-slate-400 gap-3">
+          <div className="flex justify-center flex-col items-center text-white dark:text-slate-400 gap-3">
             <Image width={200} height={100} src="/logo.png" alt="logo" />
             <div className="text-center">
               Website đọc truyện tranh online với nhiều thể loại truyện hấp dẫn như Manhwa (Hàn Quốc), Manhua (Trung Quốc), Manga (Nhật Bản), truyện ngôn tình, truyện cổ đại, truyện xuyên không luôn được cập nhật chapter mới nhanh và hình ảnh chất lượng cao. Trải nghiệm thế giới truyện tranh hoàn toàn miễn phí. Mọi thông tin và hình ảnh trên website đều được sưu tầm trên Internet, chúng tôi không sở hữu hay chịu trách nhiệm bất kỳ thông tin nào trên web này. Nếu làm ảnh hưởng đến cá nhân hay tổ chức nào, khi được yêu cầu, chúng tôi sẽ xem xét và gỡ bỏ ngay lập tức.
             </div>
-            <div>
+            <div className="text-center">
               Copyright © 2024 NQTCOMICS - All rights reserved.
             </div>
             <div className="mb-5">

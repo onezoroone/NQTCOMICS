@@ -7,7 +7,7 @@ function Ranking({dailyComics, weeklyComics, monthlyComics } : {dailyComics: any
     const [active, setActive] = useState(0);
     return (  
         <section className={styles.ranking}>
-            <div className={styles.groupRanking}>
+            <div className={`${styles.groupRanking} dark:bg-main2 bg-gray-400`}>
                 <span onClick={() => setActive(0)} className={active == 0 ? styles.activeRanking : ''}>Ngày</span>
                 <span onClick={() => setActive(1)} className={active == 1 ? styles.activeRanking : ''}>Tuần</span>
                 <span onClick={() => setActive(2)} className={active == 2 ? styles.activeRanking : ''}>Tháng</span>
@@ -18,11 +18,11 @@ function Ranking({dailyComics, weeklyComics, monthlyComics } : {dailyComics: any
                 <div className={styles.itemRanking} key={index} title={item.title}>
                     <Link href={`/${item.slug}`}><Image width={70} height={100} src={item.thumbnail} alt={item.title} /></Link>
                     <div className={styles.bodycontentRanking}>
-                        <Link href={`/${item.slug}`}><h5>{item.title}</h5></Link>
+                        <Link href={`/${item.slug}`}><h5 className="text-black dark:text-white">{item.title}</h5></Link>
                         <div style={{fontSize:'15px'}}>
                             {item.genres.map((item: any)=>(
                                 <span key={item.name}>
-                                    <Link href={`/tim-kiem-nang-cao?the-loai=${item.slug}`}>{item.name}</Link>
+                                    <Link href={`/tim-kiem-nang-cao?the-loai=${item.slug}`} className="text-slate-800 dark:text-white">{item.name}</Link>
                                     <span className={styles.dot}></span>
                                 </span>
                             ))}
@@ -47,11 +47,11 @@ function Ranking({dailyComics, weeklyComics, monthlyComics } : {dailyComics: any
                     <div className={styles.itemRanking} key={index} title={item.title}>
                     <Link href={`/${item.slug}`}><Image width={70} height={100} src={item.thumbnail} alt={item.title} /></Link>
                     <div className={styles.bodycontentRanking}>
-                        <Link href={`/${item.slug}`}><h5>{item.title}</h5></Link>
+                        <Link href={`/${item.slug}`}><h5 className="text-black dark:text-white">{item.title}</h5></Link>
                         <div style={{fontSize:'15px'}}>
                             {item.genres.map((genre: any)=>(
                                 <span key={genre.name}>
-                                    <Link href={`/tim-kiem-nang-cao?the-loai=${genre.slug}`}>{genre.name}</Link>
+                                    <Link href={`/tim-kiem-nang-cao?the-loai=${genre.slug}`} className="text-slate-800 dark:text-white">{genre.name}</Link>
                                     <span className={styles.dot}></span>
                                 </span>
                             ))}
@@ -76,11 +76,11 @@ function Ranking({dailyComics, weeklyComics, monthlyComics } : {dailyComics: any
                     <div className={styles.itemRanking} key={index} title={item.title}>
                     <Link href={`/${item.slug}`}><Image width={70} height={100} src={item.thumbnail} alt={item.title} /></Link>
                     <div className={styles.bodycontentRanking}>
-                        <Link href={`/${item.slug}`}><h5>{item.title}</h5></Link>
+                        <Link href={`/${item.slug}`}><h5 className="text-black dark:text-white">{item.title}</h5></Link>
                         <div style={{fontSize:'15px'}}>
                             {item.genres.map((genre: any)=>(
                                 <span key={genre.name}>
-                                    <Link href={`/tim-kiem-nang-cao?the-loai=${genre.slug}`}>{genre.name}</Link>
+                                    <Link href={`/tim-kiem-nang-cao?the-loai=${genre.slug}`} className="text-slate-800 dark:text-white">{genre.name}</Link>
                                     <span className={styles.dot}></span>
                                 </span>
                             ))}

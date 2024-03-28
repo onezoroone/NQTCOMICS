@@ -119,8 +119,8 @@ function SidebarGuest({data, chapter, slug}: {data: any, chapter: string, slug: 
                     <img src={item.link} className={styles.lazyload} alt={item.name} onLoad={handleImageLoad} style={{ display: isLoading ? 'none' : 'inline-block' }} />
                 </div>
             ))}
-            <div className="w-100 px-2" style={{maxWidth:'800px'}}>
-                {data && <section className={styles.navigationbottom}>
+            <div className="w-full px-2" style={{maxWidth:'800px'}}>
+                <section className={styles.navigationbottom}>
                     <Link onClick={(e) => {
                         if (parseInt(chapter) === data.chapters[data.chapters.length - 1].id) {
                             e.preventDefault();
@@ -141,7 +141,7 @@ function SidebarGuest({data, chapter, slug}: {data: any, chapter: string, slug: 
                                 ? data.chapters[data.chapters.findIndex((ch: any) => ch.id === parseInt(chapter)) - 1].id 
                                 : ''
                         }`}><span>Chap sau</span><i className="bi bi-arrow-right-short"></i></Link>
-                </section>}
+                </section>
             </div>
          </section>
         </main>

@@ -30,16 +30,16 @@ export default async function Home() {
     return (
         <LayoutRoot>
             <main>
-                <section style={{background: 'var(--background-main-2)'}}>
+                <section className="bg-light4 dark:bg-main2">
                     <div className={`${styles.containercarouselmain} container`} style={{padding:'30px 0'}}>
                         <MainCarousel data={data.comicsMostView} />
                     </div>
                 </section>
-                <section style={{background: 'var(--background-main-3)'}}>
+                <section className="dark:bg-main3 bg-slate-200">
                 <div className="container">
                     <div className="py-5">
                         <div className="flex">
-                            <h2 className="text-white mb-4 text-2xl font-bold">Trending</h2>
+                            <h2 className="text-cyan-500 dark:text-white mb-4 text-2xl font-bold">Trending</h2>
                             <div className="flex-1 flex gap-2 h-full relative justify-end">
                                 <button className={`${styles.btnslideprev} btn-prev-trending text-white`} style={{background:'#4f4f4f', display:'block'}}><i className="bi bi-chevron-left"></i></button>
                                 <button className={`${styles.btnslidenext} btn-next-trending text-white`} style={{background:'#4f4f4f', display:'block'}}><i className="bi bi-chevron-right"></i></button>
@@ -49,7 +49,7 @@ export default async function Home() {
                         </div>
                     </div>
                 </section>
-            <section className="py-4" style={{background: '#1f1f1f'}}>
+            <section className="py-4 bg-white dark:bg-main1">
                 <div className="container d-flex flex-column">
                     <div className={styles.listCategories}>
                         <Link href={`/tim-kiem-nang-cao?sort=update`} className={styles.itemcate} style={{background:'#d0e6a5'}}>
@@ -70,7 +70,7 @@ export default async function Home() {
                     </div>
                     <div className="mt-5">
                         <div className="flex">
-                            <h2 className="text-white mb-4 font-bold text-2xl">Đề Cử</h2>
+                            <h2 className="text-cyan-500 dark:text-white mb-4 font-bold text-2xl">Đề Cử</h2>
                             <div className="flex-1 flex gap-2 h-full justify-end">
                                 <button className={`${styles.btnslideprev} btn-prev-suggest text-white`} style={{background:'#2f2f2f', display:'block'}}><i className="bi bi-chevron-left"></i></button>
                                 <button className={`${styles.btnslidenext} btn-next-suggest text-white block`} style={{background:'#2f2f2f', display:'block'}}><i className="bi bi-chevron-right"></i></button>
@@ -81,7 +81,7 @@ export default async function Home() {
                     <div className="mt-10">
                         <div className="xl:flex">
                             <div className="w-full xl:w-8/12 mb-5">
-                                <h3 className="text-white mb-4 font-bold text-2xl">Danh Sách Truyện</h3>
+                                <h3 className="text-cyan-500 dark:text-white mb-4 font-bold text-2xl">Danh Sách Truyện</h3>
                                 <section className={styles.listcomic}>
                                     {data.comics.map((item: any,index: number)=>(
                                     <div className="relative" title={item.title} key={index}>
@@ -92,7 +92,7 @@ export default async function Home() {
                                             <span className={styles.views}><i className="bi bi-eye" style={{marginRight:'10px'}}></i>{item.views}</span>
                                         </div>
                                         <div className="text-center p-2 flex flex-col">
-                                            <Link className="italic" href={`/${item.slug}`} style={{fontSize:'18px', fontWeight:'700'}}>
+                                            <Link className="italic text-neutral-950 dark:text-white" href={`/${item.slug}`} style={{fontSize:'18px', fontWeight:'700'}}>
                                                 {item.title}
                                             </Link>
                                             <Link href={`/${item.slug}`} className="mt-1 text-slate-400	" style={{fontSize:'14px'}}>
@@ -103,22 +103,22 @@ export default async function Home() {
                                     </div>
                                     ))}
                                 </section>
-                                <div className={styles.pagination}>
+                                <div className={`${styles.pagination}`}>
                                     <Link href="/tim-kiem-nang-cao">1</Link>
-                                    <Link href="/tim-kiem-nang-cao">2</Link>
-                                    <Link href="/tim-kiem-nang-cao">3</Link>
-                                    <Link href="/tim-kiem-nang-cao"><i className="bi bi-chevron-right"></i></Link>
+                                    <Link className="dark:bg-main3 bg-gray-200" href="/tim-kiem-nang-cao">2</Link>
+                                    <Link className="dark:bg-main3 bg-gray-200" href="/tim-kiem-nang-cao">3</Link>
+                                    <Link className="dark:bg-main3 bg-gray-200" href="/tim-kiem-nang-cao"><i className="bi bi-chevron-right"></i></Link>
                                 </div>
                             </div>
                             <div className="w-full xl:w-4/12">
-                                <h3 className="text-white mb-4 font-bold text-2xl">Được Xem Nhiều</h3>
+                                <h3 className="text-cyan-500 dark:text-white mb-4 font-bold text-2xl">Được Xem Nhiều</h3>
                                 <Ranking dailyComics={data.dailyComics} weeklyComics={data.weeklyComics} monthlyComics={data.monthlyComics} />
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <section className="py-4" style={{background: '#1f1f1f'}}>
+            <section className="py-4 dark:bg-main1 bg-white">
                 <div className="container">
                     <h2 className="text-white mb-4 font-bold text-2xl">Đang tiến hành</h2>
                     <Carousel data={data.comicsOnGoing} />

@@ -65,8 +65,7 @@
 .pagination a{
     padding: 12px 19px;
     font-size: 16px;
-    border-radius: 5px;
-    background: #3f3f3f;
+    border-radius: 5px;;
     color: #999;
     font-weight: 700;
 }

@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className="dark">
+    <html lang="vi" id="nqtcomics">
       <body className={inter.className}>{children}</body>
     </html>
   );

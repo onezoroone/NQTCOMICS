@@ -27,7 +27,7 @@ function Chapters({data}: {data: any}) {
         }
     };
     return (  
-        <section style={{background:'var(--background-main-1)'}}>
+        <section className="dark:bg-main1 bg-light1">
             <div className="container">
                 <div className={`${styles.contentmain} lg:flex py-20`}>
                     <div className="lg:w-9/12 w-full lg:pr-10">
@@ -41,10 +41,10 @@ function Chapters({data}: {data: any}) {
                                     </div>
                                 </div>
                             </div>
-                            <div className={styles.bodyepisodes} ref={chapters}>
+                            <div className={`${styles.bodyepisodes} bg-light2 dark:bg-main2`} ref={chapters}>
                                 {data.chapters && data.chapters.map((chapter: any, index: number) => (
-                                    <div className={styles.itemepisode} key={index} ref={el => { chapterRefs.current[index] = el; }}>
-                                        <div>
+                                    <div className={`${styles.itemepisode} dark:border-main1 border-light1`} key={index} ref={el => { chapterRefs.current[index] = el; }}>
+                                        <div className="text-black dark:text-white">
                                             <i className="bi bi-file-earmark-medical"></i>
                                             <span>{chapter.chapter}</span>
                                         </div>
@@ -57,13 +57,13 @@ function Chapters({data}: {data: any}) {
                         </div>
                     </div>
                     <div className="lg:w-3/12 w-full">
-                        <h3 className="text-white font-bold text-2xl">Có Thể Bạn Sẽ Thích</h3>
+                        <h3 className="text-cyan-500 dark:text-white font-bold text-2xl">Có Thể Bạn Sẽ Thích</h3>
                         <div className={styles.contentRanking}>
                             {data.related && data.related.map((item: any, index: number) => (
                             <div className={styles.itemRanking} key={index} title={item.title}>
                                 <Link href={`/${item.slug}`}><Image width={70} height={90} className="rounded" src={item.thumbnail} alt={item.title} /></Link>
                                 <div className={styles.bodycontentRanking}>
-                                    <Link href={`/${item.slug}`}><h5 className="font-bold text-lg" style={{whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>{item.title}</h5></Link>
+                                    <Link href={`/${item.slug}`}><h5 className="font-bold text-lg text-slate-700 dark:text-white" style={{whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>{item.title}</h5></Link>
                                     <div className="w-100 text-sm text-slate-400" style={{fontSize:'15px', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>
                                         {item.genres.map((genre: any)=>(
                                             <span key={genre.slug}>

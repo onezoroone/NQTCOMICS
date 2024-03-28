@@ -85,12 +85,12 @@ export default function ApiComic() {
         <>
         <div className={styles.container}>
             <Toast ref={toast} />
-            <h2 className="text-white">API</h2>
+            <h2 className="text-white font-bold text-xl">API</h2>
             <form className={styles.form} onSubmit={onSubmit}>
                 <div className="flex gap-3">
                 <Dropdown value={selectedAPI} onChange={(e) => setSelectedAPI(e.value)} options={options} optionLabel="name" 
                 placeholder="Chọn API" />
-                    <input value={value} placeholder="Nhập Slug Truyện. Ví dụ: mashle-2nd-season" onChange={(e) => setValue(e.target.value)} className={styles.input} type="text" />
+                    <input value={value} placeholder="Nhập Slug Truyện. Ví dụ: mashle-2nd-season" onChange={(e) => setValue(e.target.value)} className={`${styles.input} w-full`} type="text" />
                 </div>
                 <div className="mt-4">
                     <Button loading={loading} className={`text-white rounded-4 ${styles.button}`}  label="Gửi API" type="submit"></Button>
@@ -98,12 +98,16 @@ export default function ApiComic() {
             </form>
         </div>
         <div className={`${styles.container} mt-5`}>
-            <h2 className="text-white">Crawl TruyenVN</h2>
+            <h2 className="text-white text-xl font-bold">Crawl TruyenVN</h2>
             <form className={styles.form} onSubmit={handleCrawl}>
-                <div className="flex gap-3">
-                    <input type="text" className={`${styles.input} w-48`} value={startChap} onChange={(e) => setStartChap(e.target.value)} placeholder="Chap đầu" />
-                    <input type="text" className={`${styles.input} w-48`} value={endChap} onChange={(e) => setEndChap(e.target.value)} placeholder="Chap cuối" />
-                    <input value={value1} placeholder="Nhập slug truyện" onChange={(e) => setValue1(e.target.value)} className={`${styles.input} w-full`} type="text" />
+                <div className="xl:flex gap-3">
+                    <div className="flex gap-2 w-full xl:w-4/12 mb-3">
+                        <input type="text" className={`${styles.input} w-full`} value={startChap} onChange={(e) => setStartChap(e.target.value)} placeholder="Chap đầu" />
+                        <input type="text" className={`${styles.input} w-full`} value={endChap} onChange={(e) => setEndChap(e.target.value)} placeholder="Chap cuối" />
+                    </div>
+                    <div className="w-full xl:w-8/12 mb-3">
+                        <input value={value1} placeholder="Nhập slug truyện" onChange={(e) => setValue1(e.target.value)} className={`${styles.input} w-full`} type="text" />
+                    </div>
                 </div>
                 <div className="mt-4">
                     <Button loading={loading} className={`text-white rounded-4 ${styles.button}`} label="Gửi API" type="submit"></Button>
