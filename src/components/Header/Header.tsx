@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { Dialog } from 'primereact/dialog';
+import axios from "axios";
 
 function HeaderGuest() {
     const [active, setActive] = useState(false);
@@ -20,9 +21,11 @@ function HeaderGuest() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
+    const [login, setLogin] = useState(false);
     useEffect(() => {
         setSearchResults([]);
         setSearchTerm('');
+        if(localStorage.getItem('token')) setLogin(true);
     }, [pathname]);
     const handleInputChange = (event: any) => {
         setSearchTerm(event.target.value);
@@ -55,22 +58,13 @@ function HeaderGuest() {
         e.preventDefault();
         if(email === '' || password === '') alert('Vui lòng nhập đầy đủ thông tin')
         else{
-            await fetch("/api/auth/v1/login", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({email, password})
+            await axios.post("/api/auth/v1/login", {
+               email, password
             })
-            .then(response => response.json())
-            .then(data => {
-                if(data.status == "error"){
-                    alert('Thông tin tài khoản hoặc mật khẩu không chính xác');
-                }
-                else{
-                    localStorage.setItem('token', data.token);
-                    setVisible(false);
-                }
+            .then((response) => {
+                localStorage.setItem('token', response.data.token);
+                setVisible(false);
+                setLogin(true);
             })
             .catch(() => {
                 alert('Thông tin tài khoản hoặc mật khẩu không chính xác');
@@ -122,7 +116,7 @@ function HeaderGuest() {
                     <div className={styles.search}>
                         <div className={`relative ${styles.searchcontent}`}>
                             <form className={styles.formsearch} action="/tim-kiem-nang-cao" autoComplete="off">
-                                <Link className={styles.filtericon} href="/search">LỌC</Link>
+                                <Link className={styles.filtericon} href="/tim-kiem-nang-cao">LỌC</Link>
                                 <input className={`${styles.searchinput}`} name="name" autoComplete="off" value={searchTerm} onChange={handleInputChange} placeholder="Tìm kiếm..." type="text" />
                                 <button className={styles.searchicon} type="submit">
                                 {isLoading ? (
@@ -148,7 +142,9 @@ function HeaderGuest() {
                     <div id="login-state" className="float-left">
                         <div id="user-slot">
                             <div className="header_right-user logged">
-                                <button onClick={() => setVisible(true)} className={`${styles.btnuser} btn btn-login`}><i className="bi bi-person-circle" style={{marginRight:'5px'}}></i><span>Đăng Nhập</span></button>
+                                {!login ? <button onClick={() => setVisible(true)} className={`${styles.btnuser} btn btn-login`}><i className="bi bi-person-circle" style={{marginRight:'5px'}}></i><span>Đăng Nhập</span></button> :
+                                <i className="bi bi-person-circle text-3xl lg:ml-0 ml-3"></i>
+                                }
                             </div>
                         </div>
                         <div className="clearfix"></div>
@@ -157,8 +153,8 @@ function HeaderGuest() {
                         <div className="flex flex-col px-8 py-5 gap-4 rounded-xl" style={{background: 'var(--background-main-2)'}}>
                             <div className="flex justify-center w-full"><Image src="/logo1.png" alt="logo" width={200} height={100} /></div>
                             <form onSubmit={handleLogin} className="flex flex-col gap-4" autoComplete="off">
-                                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={styles.inputform} placeholder="Nhập email" />
-                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={styles.inputform} placeholder="Nhập mật khẩu" />
+                                <input type="email" autoComplete="off" value={email} onChange={(e) => setEmail(e.target.value)} className={styles.inputform} placeholder="Nhập email" />
+                                <input type="password" value={password} autoComplete="off" onChange={(e) => setPassword(e.target.value)} className={styles.inputform} placeholder="Nhập mật khẩu" />
                                 <div className="flex items-center gap-2">
                                     <button type="submit" className={styles.buttonform}>Đăng nhâp</button>
                                     <button className={styles.buttonform} type="button" onClick={(e) => hide(e)}>Đóng</button>
@@ -174,10 +170,10 @@ function HeaderGuest() {
                             <div className="flex flex-col px-8 py-5 gap-4 rounded-xl" style={{background: 'var(--background-main-2)'}}>
                                 <div className="flex justify-center w-full"><Image src="/logo1.png" alt="logo" width={200} height={100} /></div>
                                 <form onSubmit={handleSignUp} className="flex flex-col gap-4" autoComplete="off">
-                                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={styles.inputform} placeholder="Nhập tên" />
-                                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={styles.inputform} placeholder="Nhập email" />
-                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={styles.inputform} placeholder="Nhập mật khẩu" />
-                                    <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className={styles.inputform} placeholder="Nhập lại mật khẩu" />
+                                    <input type="text" autoComplete="off" value={name} onChange={(e) => setName(e.target.value)} className={styles.inputform} placeholder="Nhập tên" />
+                                    <input type="email" autoComplete="off" value={email} onChange={(e) => setEmail(e.target.value)} className={styles.inputform} placeholder="Nhập email" />
+                                    <input type="password" autoComplete="off" value={password} onChange={(e) => setPassword(e.target.value)} className={styles.inputform} placeholder="Nhập mật khẩu" />
+                                    <input type="password" autoComplete="off" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className={styles.inputform} placeholder="Nhập lại mật khẩu" />
                                     <div className="flex items-center gap-2">
                                         <button type="submit" className={styles.buttonform}>Đăng ký</button>
                                         <button className={styles.buttonform} type="button" onClick={(e) => hide(e)}>Đóng</button>
@@ -195,7 +191,7 @@ function HeaderGuest() {
             <div className={`${styles.searchmobile} ${!active ? 'invisible' : ""}`} style={{zIndex:'10'}}>
                 <div className={`relative ${styles.searchcontent}`}>
                     <form action="/tim-kiem-nang-cao" className={`${styles.formsearch} w-full`} autoComplete="off">
-                        <Link className={styles.filtericon} href="/search">LỌC</Link>
+                        <Link className={styles.filtericon} href="/tim-kiem-nang-cao">LỌC</Link>
                         <input autoComplete="off" className={`${styles.searchinput}`} name="name" value={searchTerm} onChange={handleInputChange} placeholder="Tìm kiếm..." type="text" />
                         <button className={styles.searchicon} type="submit">
                         {isLoading ? (

@@ -5,15 +5,16 @@ import { Dropdown } from 'primereact/dropdown';
 import { Toast } from 'primereact/toast';
 import { Button } from "primereact/button";
 import { useRouter } from "next/navigation";
-import { token } from "@/libs/data";
+import axiosClient from "@/libs/axiosClient";
 export default function ApiComic() {
     const router = useRouter();
     const toast = useRef(null);
     const [selectedAPI, setSelectedAPI] = useState(null);
     const [value, setValue] = useState("");
     const [loading, setLoading] = useState(false);
-    const [selectedAPI1, setSelectedAPI1] = useState(null);
     const [value1, setValue1] = useState("");
+    const [startChap, setStartChap] = useState("");
+    const [endChap, setEndChap] = useState("");
     const options = [
         {
             name: 'NCOMICS'
@@ -21,9 +22,6 @@ export default function ApiComic() {
         {
             name: 'OTRUYEN'
         },
-        {
-            name: 'SAYHEN'
-        }
     ];
     const onSubmit = async (ev: any) => {
         ev.preventDefault();
@@ -61,70 +59,28 @@ export default function ApiComic() {
                 .catch(() => {
                     (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:'Đường dẫn không hợp lệ.', life: 3000});
                 })
-            }else if((selectedAPI as { name: string }).name == "SAYHEN"){
-                const header = new Headers();
-                header.append('Content-Type', 'application/json');
-                header.append('Authorization', 'Bearer ' + token);
-                await fetch(`/api/comics/crawlSayhentai/` + value,
-                {
-                    method: 'POST',
-                    headers: header
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if(data.status && data.status === 500) {
-                        (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:'Đường dẫn không hợp lệ.', life: 3000});
-                    }
-                    else{
-                        (toast.current as any).show({severity:'success', summary: 'Thành công', detail:'Crawl thành công.', life: 3000});
-                    }
-                })
-                .catch(() => {
-                    (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:'Đường dẫn không hợp lệ.', life: 3000});
-                })
             }
             setLoading(false);
         }
     }
 
-    const hanldeUpdate = async (e: any) => {
-        e.preventDefault();
-        // if(!selectedAPI1 || value1 == ""){
-        //     toast.current.show({severity:'warn', summary: 'Cảnh báo', detail:'Vui lòng điền đầy đủ thông tin.', life: 3000});
-        // }else{
-        //     setLoading(true);
-        //     if(selectedAPI1.name == "NCOMICS"){
-        //         const response = await axios.get(`${import.meta.env.VITE_BASE_NCOMICS_URL}/comics/phim-moi-cap-nhat?page=` + value1)
-        //         for(let i = 0; i < response.data.items.length; i++){
-        //             await axiosClient.post("/movies/leechMovies",{
-        //                 data: response.data.items[i],
-        //                 serverName: "NGUONC",
-        //                 name: response.data.items[i].name
-        //             }).then((res) => {
-        //                 toast.current.show({severity:'success', summary: 'Thành công', detail:res.data, life: 3000});
-        //             }).catch((err) => {
-        //                 toast.current.show({severity:'error', summary: 'Lỗi', detail:err.response.data.message, life: 3000});
-        //             })
-        //         }
-        //     }else if(selectedAPI1.name == "OPHIM"){
-        //         const response = await axios.get(`https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=` + value1)
-        //         for(let i = 0; i < response.data.items.length; i++){
-        //             await axiosClient.post("/movies/leechMovies",{
-        //                 data: response.data.items[i],
-        //                 serverName: "OPHIM",
-        //                 name: response.data.items[i].name
-        //             }).then((res) => {
-        //                 toast.current.show({severity:'success', summary: 'Thành công', detail:res.data, life: 3000});
-        //             }).catch((err) => {
-        //                 toast.current.show({severity:'error', summary: 'Lỗi', detail:err.response.data.message, life: 3000});
-        //             })
-        //         }
-        //     }
-        //     setLoading(false);
-        // }
+    const handleCrawl = async (ev: any) => {
+        ev.preventDefault();
+        if(value1 == "" || startChap == "" || endChap == ""){
+            (toast.current as any).show({severity:'warn', summary: 'Cảnh báo', detail:'Vui lòng điền đầy đủ thông tin.', life: 3000});
+        }else{
+            setLoading(true);
+            await axiosClient.post(`/api/comics/crawlTruyenVN/` + value1, {startChap, endChap}, { timeout: 500000 })
+            .then(() => {
+                (toast.current as any).show({severity:'success', summary: 'Thành công', detail:'Crawl thành công.', life: 3000});
+            })
+            .catch(() => {
+                (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:'Đường dẫn không hợp lệ hoặc quá thời gian chờ.', life: 3000});
+            })
+            setLoading(false);
+        }
     }
 
-    
     return (  
         <>
         <div className={styles.container}>
@@ -134,7 +90,7 @@ export default function ApiComic() {
                 <div className="flex gap-3">
                 <Dropdown value={selectedAPI} onChange={(e) => setSelectedAPI(e.value)} options={options} optionLabel="name" 
                 placeholder="Chọn API" />
-                    <input value={value} placeholder="Nhập Slug Phim. Ví dụ: mashle-2nd-season" onChange={(e) => setValue(e.target.value)} className={styles.input} type="text" />
+                    <input value={value} placeholder="Nhập Slug Truyện. Ví dụ: mashle-2nd-season" onChange={(e) => setValue(e.target.value)} className={styles.input} type="text" />
                 </div>
                 <div className="mt-4">
                     <Button loading={loading} className={`text-white rounded-4 ${styles.button}`}  label="Gửi API" type="submit"></Button>
@@ -142,12 +98,12 @@ export default function ApiComic() {
             </form>
         </div>
         <div className={`${styles.container} mt-5`}>
-            <h2 className="text-white">Crawl nhanh</h2>
-            <form className={styles.form} onSubmit={hanldeUpdate}>
+            <h2 className="text-white">Crawl TruyenVN</h2>
+            <form className={styles.form} onSubmit={handleCrawl}>
                 <div className="flex gap-3">
-                <Dropdown value={selectedAPI1} onChange={(e) => setSelectedAPI1(e.value)} options={options} optionLabel="name" 
-                placeholder="Chọn API" />
-                    <input value={value1} placeholder="Nhập số trang. Ví dụ: 1" onChange={(e) => setValue1(e.target.value)} className={styles.input} type="text" />
+                    <input type="text" className={`${styles.input} w-48`} value={startChap} onChange={(e) => setStartChap(e.target.value)} placeholder="Chap đầu" />
+                    <input type="text" className={`${styles.input} w-48`} value={endChap} onChange={(e) => setEndChap(e.target.value)} placeholder="Chap cuối" />
+                    <input value={value1} placeholder="Nhập slug truyện" onChange={(e) => setValue1(e.target.value)} className={`${styles.input} w-full`} type="text" />
                 </div>
                 <div className="mt-4">
                     <Button loading={loading} className={`text-white rounded-4 ${styles.button}`} label="Gửi API" type="submit"></Button>

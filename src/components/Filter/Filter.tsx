@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -20,39 +21,41 @@ function Filter({data}: {data: any}) {
     const pathname = usePathname()
     const router = useRouter()
     useEffect(() => {
-        setPage(Math.ceil(data.comics.length / itemperPage));
-        let filteredData = data.comics;
-        const nameParam = searchParams.get("name");
-        if(nameParam){
-            filteredData = filteredData.filter((comic: any) => comic.title.toLowerCase().includes(nameParam.toLowerCase()));
-        }
-        const categoryParam = searchParams.get("the-loai");
-        if (categoryParam) {
-            filteredData = filteredData.filter((comic: any) => comic.genres.some((genre: any) => genre.slug === categoryParam));
-            setIngredient(categoryParam);
-        }
-        const typeParam = searchParams.get("trang-thai");
-        if (typeParam) {
-            filteredData = filteredData.filter((comic: any) => comic.status.toLowerCase() === typeParam);
-            setSelectedType(typeParam);
-        }
-        const sortParam = searchParams.get("sort");
-        if (sortParam) {
-            if(sortParam === "new") {
-                filteredData = filteredData.sort((a: any, b: any) => b.created_at - a.created_at);
-            } else if(sortParam === "update") {
-                filteredData = filteredData.sort((a: any, b: any) => b.updated_at - a.updated_at);
-            } else if(sortParam === "views") {
-                filteredData = filteredData.sort((a: any, b: any) => b.views - a.views);
+        if(data && data.length !== 0){
+            setPage(Math.ceil(data.comics.length / itemperPage));
+            let filteredData = data.comics;
+            const nameParam = searchParams.get("name");
+            if(nameParam){
+                filteredData = filteredData.filter((comic: any) => comic.title.toLowerCase().includes(nameParam.toLowerCase()));
             }
-            setSelectedSort(sortParam);
+            const categoryParam = searchParams.get("the-loai");
+            if (categoryParam) {
+                filteredData = filteredData.filter((comic: any) => comic.genres.some((genre: any) => genre.slug === categoryParam));
+                setIngredient(categoryParam);
+            }
+            const typeParam = searchParams.get("trang-thai");
+            if (typeParam) {
+                filteredData = filteredData.filter((comic: any) => comic.status.toLowerCase() === typeParam);
+                setSelectedType(typeParam);
+            }
+            const sortParam = searchParams.get("sort");
+            if (sortParam) {
+                if(sortParam === "new") {
+                    filteredData = filteredData.sort((a: any, b: any) => b.created_at - a.created_at);
+                } else if(sortParam === "update") {
+                    filteredData = filteredData.sort((a: any, b: any) => b.updated_at - a.updated_at);
+                } else if(sortParam === "views") {
+                    filteredData = filteredData.sort((a: any, b: any) => b.views - a.views);
+                }
+                setSelectedSort(sortParam);
+            }
+            if(filteredData && filteredData.length != 0){
+                setPage(Math.ceil(filteredData.length / itemperPage));
+                setCurrentPage(1);
+            }
+            setFilterData(filteredData);
         }
-        if(filteredData && filteredData.length != 0){
-            setPage(Math.ceil(filteredData.length / itemperPage));
-            setCurrentPage(1);
-        }
-        setFilterData(filteredData);
-    },[searchParams, data.comics])
+    },[searchParams])
     const createQueryString = useCallback(
         (name: string, value: string) => {
           const params = new URLSearchParams(searchParams.toString())

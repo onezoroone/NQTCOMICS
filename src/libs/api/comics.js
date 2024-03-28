@@ -1,5 +1,5 @@
 export async function fetchComics() {
-    return fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/comics/v1/getComics`, { cache: 'no-store' })
+    return fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/comics/v1/getComics`)
         .then(response => response.json())
         .then(data => {
             return data;
@@ -10,7 +10,7 @@ export async function fetchComics() {
 }
 
 export async function fetchComicBySlug(slug) {
-    return fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/comics/v1/getComic/${slug}`, { cache: 'no-store' })
+    return fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/comics/v1/getComic/${slug}`)
         .then(response => response.json())
         .then(data => {
             return data;
@@ -32,7 +32,7 @@ export async function fetchComicBySlugAndChapter(slug, chapter) {
 }
 
 export async function getFilter(){
-    return fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/comics/v1/getFilter`)
+    return await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/comics/v1/getFilter`)
         .then(response => response.json())
         .then(data => {
             return data;

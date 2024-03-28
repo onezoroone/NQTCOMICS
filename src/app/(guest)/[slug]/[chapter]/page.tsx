@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
             url: `${process.env.NEXT_PUBPIC_BASE_NAME}/${params.slug}/${params.chapter}`,
             locale: 'vi_VN',
             siteName: process.env.NEXT_PUBPIC_BASE_NAME,
-            images: [`/_next/image?url=${data.thumbnail}&w=640&q=75`, ...previousImages],
+            images: [`${process.env.NEXT_PUBPIC_BASE_URL}/_next/image?url=${data.thumbnail}&w=640&q=75`, ...previousImages],
         },
     }
 }

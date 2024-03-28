@@ -104,7 +104,7 @@ function NewComic() {
                 }
             })
             .catch(() => {
-                (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:'Truyện đã tồn tại.', life: 3000});
+                (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:'Truyện đã tồn tại hoặc quá thời gian chờ.', life: 3000});
             })
             setLoading(false);
         }
