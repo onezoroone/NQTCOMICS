@@ -80,7 +80,7 @@ export default async function Home() {
                     </div>
                     <div className="mt-10">
                         <div className="xl:flex">
-                            <div className="w-full xl:w-8/12 mb-5">
+                            <div className="w-full xl:w-8/12 mb-5 xl:pr-4">
                                 <h3 className="text-cyan-500 dark:text-white mb-4 font-bold text-2xl">Danh Sách Truyện</h3>
                                 <section className={styles.listcomic}>
                                     {data.comics.map((item: any,index: number)=>(

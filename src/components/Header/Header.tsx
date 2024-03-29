@@ -74,7 +74,7 @@ function HeaderGuest() {
         e.preventDefault();
         if(email === '' || password === '') alert('Vui lòng nhập đầy đủ thông tin')
         else{
-            await axiosClient.post(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/auth/v1/login", {
+            await axiosClient.post("/api/auth/v1/login", {
                email, password
             },{
                 withCredentials: true
