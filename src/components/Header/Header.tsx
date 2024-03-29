@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { Dialog } from 'primereact/dialog';
 import axios from "axios";
+import axiosClient from "@/libs/axiosClient";
 
 function HeaderGuest() {
     const [active, setActive] = useState(false);
@@ -73,7 +74,7 @@ function HeaderGuest() {
         e.preventDefault();
         if(email === '' || password === '') alert('Vui lòng nhập đầy đủ thông tin')
         else{
-            await axios.post("/api/auth/v1/login", {
+            await axiosClient.post("/api/auth/v1/login", {
                email, password
             },{
                 withCredentials: true
@@ -93,23 +94,24 @@ function HeaderGuest() {
         if(email === '' || password === '' || name === '' || confirmPassword === '') alert('Vui lòng nhập đầy đủ thông tin')
         else if(password !== confirmPassword) alert('Mật khẩu không trùng khớp')
         else{
-            await fetch("/api/auth/v1/signup", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({email, password, name, confirmPassword})
+            await axiosClient.post("/api/auth/v1/signup", {
+               email, password, name, confirmPassword
             })
             .then((data: any) => {
-                if(data.status === 200){
-                    alert('Đăng ký thành công.');
+                alert('Đăng ký thành công.');
                     setName('');
                     setEmail('');
                     setPassword('');
                     setConfirmPassword('');
-                }else{
-                    alert('Email đã có người sử dụng.');
-                }
+                // if(data.status === 200){
+                //     alert('Đăng ký thành công.');
+                //     setName('');
+                //     setEmail('');
+                //     setPassword('');
+                //     setConfirmPassword('');
+                // }else{
+                //     alert('Email đã có người sử dụng.');
+                // }
             })
             .catch(() => {
                 alert('Email đã có người sử dụng.');
