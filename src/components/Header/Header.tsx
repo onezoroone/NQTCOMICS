@@ -74,7 +74,7 @@ function HeaderGuest() {
         e.preventDefault();
         if(email === '' || password === '') alert('Vui lòng nhập đầy đủ thông tin')
         else{
-            await axiosClient.post("/api/auth/v1/login", {
+            await axiosClient.post(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/auth/v1/login", {
                email, password
             },{
                 withCredentials: true
@@ -94,7 +94,7 @@ function HeaderGuest() {
         if(email === '' || password === '' || name === '' || confirmPassword === '') alert('Vui lòng nhập đầy đủ thông tin')
         else if(password !== confirmPassword) alert('Mật khẩu không trùng khớp')
         else{
-            await axiosClient.post("/api/auth/v1/signup", {
+            await axiosClient.post(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/auth/v1/signup", {
                email, password, name, confirmPassword
             })
             .then((data: any) => {
