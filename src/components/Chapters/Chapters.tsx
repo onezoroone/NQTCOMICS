@@ -44,9 +44,10 @@ function Chapters({data}: {data: any}) {
                             <div className={`${styles.bodyepisodes} bg-light2 dark:bg-main2`} ref={chapters}>
                                 {data.chapters && data.chapters.map((chapter: any, index: number) => (
                                     <div className={`${styles.itemepisode} dark:border-main1 border-light1`} key={index} ref={el => { chapterRefs.current[index] = el; }}>
-                                        <div className="text-black dark:text-white">
+                                        <div className={`${data.history.includes(chapter.slug) ? 'text-yellow-600 dark:text-gray-500' : 'text-black dark:text-white'}`}>
                                             <i className="bi bi-file-earmark-medical"></i>
                                             <span>{chapter.chapter}</span>
+                                            {chapter.slug === data.history[data.history.length - 1] && <i className="bi bi-star-fill ml-2 text-red-600"></i>}
                                         </div>
                                         <div className="flex-1 flex justify-end">
                                             <Link href={`/${data.comic.slug}/${chapter.slug}`} className={styles.btnread}><i className="bi bi-sunglasses"></i>Đọc</Link>

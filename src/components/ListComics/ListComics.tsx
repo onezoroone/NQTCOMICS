@@ -198,7 +198,7 @@ export default function ListComics() {
                     <Column field="id" header="Code" sortable></Column>
                     <Column field="title" header="Tên" sortable style={{ minWidth: '16rem' }}></Column>
                     <Column field="origin_name" header="Tên khác"></Column>
-                    <Column field="thumbnail" header="Ảnh" body={imageBodyTemplate}></Column>
+                    <Column field="thumbnail" header="Ảnh" body={imageBodyTemplate} style={{minWidth: '150px'}}></Column>
                     <Column field="genres" header="Thể loại" body={categoryTemplate} sortable style={{ minWidth: '10rem' }}></Column>
                     <Column field="rating" header="Đánh giá" body={ratingBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
                     <Column field="chapter" header="Chương" body={TypeBodyTemplate} style={{ minWidth: '6rem' }} sortable ></Column>

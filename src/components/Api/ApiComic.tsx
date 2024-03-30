@@ -14,7 +14,6 @@ export default function ApiComic() {
     const [loading, setLoading] = useState(false);
     const [value1, setValue1] = useState("");
     const [startChap, setStartChap] = useState("");
-    const [endChap, setEndChap] = useState("");
     const options = [
         {
             name: 'NCOMICS'
@@ -66,18 +65,32 @@ export default function ApiComic() {
 
     const handleCrawl = async (ev: any) => {
         ev.preventDefault();
-        if(value1 == "" || startChap == "" || endChap == ""){
+        let count = 0;
+        if(value1 == "" || startChap == ""){
             (toast.current as any).show({severity:'warn', summary: 'Cảnh báo', detail:'Vui lòng điền đầy đủ thông tin.', life: 3000});
         }else{
             setLoading(true);
-            await axiosClient.post(`/api/comics/crawlTruyenVN/` + value1, {startChap, endChap}, { timeout: 500000 })
-            .then(() => {
-                (toast.current as any).show({severity:'success', summary: 'Thành công', detail:'Crawl thành công.', life: 3000});
+            const chapters = startChap.split("\n");
+            await axiosClient.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/comics/crawlTruyenVN/` + value1)
+            .then((res) => {
+                (toast.current as any).show({severity:'success', summary: 'Thành công', detail: res.data.message, life: 3000});
+                chapters.map((chap) => {
+                    axiosClient.get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/comics/v1/crawlChapterTruyenVN/${res.data.comicId}/${chap}`, {timeout: 1000000})
+                    .then((message) => {
+                        (toast.current as any).show({severity:'success', summary: 'Thành công', detail: message.data.message, life: 3000});
+                    }).catch((err) => {
+                        (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:err.response.data.message, life: 3000});
+                    }).finally(() => {
+                        count++;
+                        if(count == chapters.length){
+                            setLoading(false);
+                        }
+                    });
+                })
             })
-            .catch(() => {
-                (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:'Đường dẫn không hợp lệ hoặc quá thời gian chờ.', life: 3000});
+            .catch((err) => {
+                (toast.current as any).show({severity:'error', summary: 'Lỗi', detail:err.response.data.message, life: 3000});
             })
-            setLoading(false);
         }
     }
 
@@ -102,8 +115,7 @@ export default function ApiComic() {
             <form className={styles.form} onSubmit={handleCrawl}>
                 <div className="xl:flex gap-3">
                     <div className="flex gap-2 w-full xl:w-4/12 mb-3">
-                        <input type="text" className={`${styles.input} w-full`} value={startChap} onChange={(e) => setStartChap(e.target.value)} placeholder="Chap đầu" />
-                        <input type="text" className={`${styles.input} w-full`} value={endChap} onChange={(e) => setEndChap(e.target.value)} placeholder="Chap cuối" />
+                        <textarea value={startChap} onChange={(e) => setStartChap(e.target.value)} placeholder="Nhập các tập cần crawl" className={`focus:outline-none px-3 py-2 w-full`} style={{background:'#111827'}} rows={10}></textarea>
                     </div>
                     <div className="w-full xl:w-8/12 mb-3">
                         <input value={value1} placeholder="Nhập slug truyện" onChange={(e) => setValue1(e.target.value)} className={`${styles.input} w-full`} type="text" />

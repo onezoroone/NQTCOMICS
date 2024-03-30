@@ -81,8 +81,8 @@ async function Detail({params}: Props) {
                             </div>
                             <div className="mt-3 flex gap-1 xl:justify-start justify-center">
                                 <Link href={`/${params.slug}/${data.chapters[0].slug}`} className={styles.btn}><i className="bi bi-eye-fill"></i>Đọc Ngay</Link>
-                                {data.history.length ==0 ? <Link href={`/${params.slug}/${data.chapters[data.chapters.length - 1].slug}`} className={styles.btn}><i className="bi bi-eye-fill"></i>Đọc Từ Đầu</Link> :
-                                <Link href={`/${params.slug}/${data.history.slug}`} className={styles.btn}><i className="bi bi-eye-fill"></i>Đọc Tiếp</Link>}
+                                {data.history.length == 0 ? <Link href={`/${params.slug}/${data.chapters[data.chapters.length - 1].slug}`} className={styles.btn}><i className="bi bi-eye-fill"></i>Đọc Từ Đầu</Link> :
+                                <Link href={`/${params.slug}/${data.history[data.history.length - 1]}`} className={styles.btn}><i className="bi bi-eye-fill"></i>Đọc Tiếp</Link>}
                                 <ButtonFollow check={data.follow} id={data.comic.id} />
                             </div>
                         </div>
