@@ -91,14 +91,14 @@ function NewComic() {
             let result: any[] = [];
             let idComic: any = null;
             let promises: any[] = [];
-            // await axiosClient.post("/api/comics/v1/crawlComic",{
-            //    name, othername, slug, chapter, status, image, author, description, selectedCategories, chapters, nameServer
-            // })
-            await axiosClient.get(process.env.NEXT_PUBLIC_BASE_API_URL +  "/api/comics/v1/crawlComic",{
-                params: {
-                    name, othername, slug, chapter, status, image, author, description, selectedCategories, nameServer
-                }
+            await axiosClient.post("/api/comics/v1/crawlComic",{
+               name, othername, slug, chapter, status, image, author, description, selectedCategories, chapters, nameServer
             })
+            // await axiosClient.post(process.env.NEXT_PUBLIC_BASE_API_URL +  "/api/comics/v1/crawlComic",{
+            //     params: {
+            //         name, othername, slug, chapter, status, image, author, description, selectedCategories, nameServer
+            //     }
+            // })
             .then((response) => {
                 idComic = response.data.comicId;
                 (toast.current as any).show({severity:'success', summary: 'Thành công', detail: response.data.message, life: 3000});
@@ -133,13 +133,11 @@ function NewComic() {
                 }
                 if(result.length !== 0){
                     const postPromises = result.map((item: any, index) => {
-                    return axiosClient.get(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/comics/v1/crawlChapter",{
-                        params: {
-                            idComic,
-                            chapters: item,
-                            nameServer,
-                            turn: index + 1
-                        }
+                    return axiosClient.post("/api/comics/v1/crawlChapter",{
+                        idComic,
+                        chapters: item,
+                        nameServer,
+                        turn: index + 1
                     }).then((res) => {
                         (toast.current as any).show({severity:'success', summary: 'Thành công', detail:res.data.message, life: 3000});
                     }).catch((err) => {
@@ -149,9 +147,12 @@ function NewComic() {
                         count++;
                         if(count == result.length){
                             setLoading(false);
-                            setInterval(() => {
-                                router.push('/admin/list-comics');
-                            }, 5000);
+                            alert("Thêm phim thành công");
+                            router.push('/admin/list-comics');
+                            // const inter = setInterval(() => {
+                            //     router.push('/admin/list-comics');
+                            // }, 5000);
+                            // clearInterval(inter);
                         }
                         })
                     });

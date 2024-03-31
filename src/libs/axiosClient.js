@@ -1,8 +1,6 @@
 import axios from "axios"
 
-const axiosClient = axios.create({
-    withCredentials: true,
-});
+const axiosClient = axios.create();
 axiosClient.interceptors.request.use((config) => {
     const token = localStorage.getItem('token')
     config.headers.Authorization = `Bearer ${token}`

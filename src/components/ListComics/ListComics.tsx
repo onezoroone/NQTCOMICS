@@ -12,6 +12,7 @@ import { Tag } from 'primereact/tag';
 import Link from 'next/link';
 import { token } from '@/libs/data';
 import Image from 'next/image';
+import axiosClient from '@/libs/axiosClient';
 
 export default function ListComics() {
     const [deleteComicDialog, setDeleteComicDialog] = useState(false);
@@ -53,30 +54,16 @@ export default function ListComics() {
 
     const deleteComic = async () => {
         setLoading(true);
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', 'Bearer ' + token);
-        fetch("/api/comics/deleteComic",{
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({
-                id: (comic as { id: number }).id,
-                title: (comic as {title: string}).title
-            })
+        await axiosClient.post("/api/comics/deleteComic",{
+            id: (comic as { id: number }).id,
+            title: (comic as {title: string}).title
         })
-        .then(res => res.json())
-        .then(data => {
-            (toast.current as any).show({severity:'success', summary: 'Thành công', detail:data, life: 5000});
+        .then((response) => {
+            (toast.current as any).show({severity:'success', summary: 'Thành công', detail: response.data, life: 5000});
         })
         .catch(() => {
             (toast.current as any).show({severity:'error', summary: 'Thất bại', detail:'Xảy ra lỗi, vui lòng thử lại sau', life: 5000});
         })
-        // await axiosClient.post("/Comics/deleteComic",{
-        //     id: Comic.id,
-        //     name: Comic.name
-        // }).then((response => {
-        //     toast.current.show({severity:'success', summary: 'Thành công', detail:response.data, life: 5000});
-        // }))
         setReload(!reload);
         setLoading(false);
         setDeleteComicDialog(false);

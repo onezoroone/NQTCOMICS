@@ -73,15 +73,10 @@ function HeaderGuest() {
         e.preventDefault();
         if(email === '' || password === '') alert('Vui lòng nhập đầy đủ thông tin')
         else{
-            // await axiosClient.post("/api/auth/v1/login", {
-            //    email, password
-            // },{
-            //     withCredentials: true,
-            // })
-            await axiosClient.get(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/auth/v1/login", {
-                params: {
-                    email, password
-                }
+            await axiosClient.post("/api/auth/v1/login", {
+               email, password
+            },{
+                withCredentials: true,
             })
             .then((response) => {
                 localStorage.setItem('token', response.data.token);
@@ -98,13 +93,8 @@ function HeaderGuest() {
         if(email === '' || password === '' || name === '' || confirmPassword === '') alert('Vui lòng nhập đầy đủ thông tin')
         else if(password !== confirmPassword) alert('Mật khẩu không trùng khớp')
         else{
-            // await axiosClient.post("/api/auth/v1/signup", {
-            //    email, password, name, confirmPassword
-            // })
-            await axiosClient.get(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/auth/v1/signup", {
-                params: {
-                    email, password, name, confirmPassword
-                }
+            await axiosClient.post("/api/auth/v1/signup", {
+               email, password, name, confirmPassword
             })
             .then(() => {
                 alert('Đăng ký thành công.');
