@@ -37,7 +37,7 @@ export default async function Home() {
                 </section>
                 <section className="dark:bg-main3 bg-slate-200">
                 <div className="container">
-                    <div className="py-5">
+                    <div className="py-10">
                         <div className="flex">
                             <h2 className="text-cyan-500 dark:text-white mb-4 text-2xl font-bold">Trending</h2>
                             <div className="flex-1 flex gap-2 h-full relative justify-end">
@@ -84,15 +84,15 @@ export default async function Home() {
                                 <h3 className="text-cyan-500 dark:text-white mb-4 font-bold text-2xl">Danh Sách Truyện</h3>
                                 <section className={styles.listcomic}>
                                     {data.comics.map((item: any,index: number)=>(
-                                    <div className="relative" title={item.title} key={index}>
-                                        <div className="relative">
+                                    <div className={`relative ${styles.itemList}`} title={item.title} key={index}>
+                                        <div className="relative h-72 overflow-hidden">
                                             <Link href={`/${item.slug}`}>
-                                                <Image width={500} height={270} src={item.thumbnail} alt={item.title} />
+                                                <Image fill sizes="(max-width:800px) 500px, 300px" className={styles.imgItemList} src={item.thumbnail} alt={item.title} />
                                             </Link>
                                             <span className={styles.views}><i className="bi bi-eye" style={{marginRight:'10px'}}></i>{item.views}</span>
                                         </div>
                                         <div className="text-center p-2 flex flex-col">
-                                            <Link className="italic text-neutral-950 dark:text-white" href={`/${item.slug}`} style={{fontSize:'18px', fontWeight:'700'}}>
+                                            <Link className={`italic text-neutral-950 dark:text-white ${styles.hover1}`} href={`/${item.slug}`} style={{fontSize:'18px', fontWeight:'700'}}>
                                                 {item.title}
                                             </Link>
                                             <Link href={`/${item.slug}`} className="mt-1 text-slate-400	" style={{fontSize:'14px'}}>

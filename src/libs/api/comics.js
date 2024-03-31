@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers'
 
 export async function fetchComics() {
-    return fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/comics/v1/getComics`, { next: { revalidate: 900 } })
+    return fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/comics/v1/getComics`,  { cache: 'no-store' })
         .then(response => response.json())
         .then(data => {
             return data;
@@ -23,9 +23,6 @@ export async function fetchComicBySlug(slug) {
         .then(data => {
             return data;
         })
-        .catch(error => {
-            throw new Error('Error:', error);
-        });
 }
 
 export function fetchComicBySlugAndChapter(slug, chapter) {

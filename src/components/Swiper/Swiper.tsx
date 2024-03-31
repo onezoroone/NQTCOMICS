@@ -83,7 +83,7 @@ export function CarouselTrending({data}: {data: any}) {
                         <span>{index+1}</span>
                         <div>{item.title}</div>
                     </div>
-                    <div className="relative w-full">
+                    <div className="relative w-full overflow-hidden">
                         <Image fill sizes="(max-width: 768px) 50vw, 60vw" src={item.thumbnail} alt={item.title} style={{objectFit:'cover'}} />
                         <div className={styles.hiddenitem}>
                             <h6 className="uppercase " style={{fontSize:'13px'}}>{item.title}</h6>
@@ -135,8 +135,8 @@ export function Carousel({data}: {data: any}) {
                 {data.map((item: any,index: number)=>(
                     <SwiperSlide key={index}>
                     <div className={styles.item1} title={item.title}>
-                        <div className="relative w-full h-full overflow-hidden">
-                            <Image height={220} width={180} src={item.thumbnail} alt={item.title} style={{objectFit:'cover', maxHeight:'220px', marginBottom:'5px'}} />
+                        <div className="relative w-full h-full overflow-hidden" style={{height:'220px'}}>
+                            <Image fill sizes="(max-width: 800px) 200px, 180px" src={item.thumbnail} alt={item.title} style={{objectFit:'cover', maxHeight:'220px', marginBottom:'5px'}} />
                             <div className={styles.hiddenitem}>
                                 <h6 className="uppercase" style={{fontSize:'13px'}}>{item.title}</h6>
                                 <div className="flex flex-1 flex-col">
@@ -149,7 +149,7 @@ export function Carousel({data}: {data: any}) {
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div className="pt-1">
                             <Link href={`/${item.slug}`}><h6 className="dark:font-bold text-slate-950 dark:text-white">{item.title}</h6></Link>
                             <div className="text-sm" style={{whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis', color:'#999'}}>
                                 {item.genres.map((genre: any, key: number)=>(

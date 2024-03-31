@@ -177,12 +177,12 @@ function HeaderGuest() {
                                 <div className="relative">
                                     <i className="bi bi-person-circle text-3xl cursor-pointer" onClick={() => setActiveProfile(!activeProfile)}></i>
                                     {activeProfile && 
-                                    <div className="absolute w-32 bg-cyan-400 z-10 px-2 right-0 select-none">
+                                    <div className="absolute w-32 bg-cyan-400 z-10 px-3 right-0 select-none">
                                         <ul className="list-group">
                                             <li className="py-1"><Link href="/">Hồ sơ</Link></li>
                                             <li className="py-1"><Link href="/">Đã xem</Link></li>
                                             <li className="py-1"><Link href="/">Đã theo dõi</Link></li>
-                                            <li className="py-1"><button onClick={handleLogout} className="border-0">Đăng xuất</button></li>
+                                            <li className="py-1"><button onClick={() => handleLogout()} className="border-0">Đăng xuất</button></li>
                                         </ul>
                                     </div>}
                                 </div>

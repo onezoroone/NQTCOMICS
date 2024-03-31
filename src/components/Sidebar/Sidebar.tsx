@@ -122,25 +122,25 @@ function SidebarGuest({data, chapter, slug}: {data: any, chapter: string, slug: 
             <div className="w-full px-2" style={{maxWidth:'800px'}}>
                 <section className={styles.navigationbottom}>
                     <Link onClick={(e) => {
-                        if (parseInt(chapter) === data.chapters[data.chapters.length - 1].id) {
-                            e.preventDefault();
-                        }}} 
-                        style={parseInt(chapter) === data.chapters[data.chapters.length - 1].id ? { pointerEvents: 'none', color: 'gray' } : {}}
-                        href={`/${slug}/${
-                            data.chapters.findIndex((ch: any) => ch.id === parseInt(chapter)) < data.chapters.length - 1 
-                                ? data.chapters[data.chapters.findIndex((ch: any) => ch.id === parseInt(chapter)) + 1].id 
-                                : ''
-                        }`}><i className="bi bi-arrow-left-short"></i><span>Chap trước</span></Link>
+                    if (chapter === data.chapters[data.chapters.length - 1].slug) {
+                        e.preventDefault();
+                    }}} 
+                    style={chapter === data.chapters[data.chapters.length - 1].slug ? { pointerEvents: 'none', color: 'gray' } : {}}
+                    href={`/${slug}/${
+                        data.chapters.findIndex((ch: any) => ch.slug === chapter) < data.chapters.length - 1 
+                            ? data.chapters[data.chapters.findIndex((ch: any) => ch.slug === chapter) + 1].slug 
+                            : ''
+                    }`}><i className="bi bi-arrow-left-short"></i><span>Chap trước</span></Link>
                     <Link onClick={(e) => {
-                        if (parseInt(chapter) === data.chapters[0].id) {
-                            e.preventDefault();
-                        }}} 
-                        style={parseInt(chapter) === data.chapters[0].id ? { pointerEvents: 'none', color: 'gray' } : {}}
-                        href={`/${slug}/${
-                            data.chapters.findIndex((ch: any) => ch.id === parseInt(chapter)) > 0 
-                                ? data.chapters[data.chapters.findIndex((ch: any) => ch.id === parseInt(chapter)) - 1].id 
-                                : ''
-                        }`}><span>Chap sau</span><i className="bi bi-arrow-right-short"></i></Link>
+                    if (chapter === data.chapters[0].slug) {
+                        e.preventDefault();
+                    }}} 
+                    style={chapter === data.chapters[0].slug ? { pointerEvents: 'none', color: 'gray' } : {}}
+                    href={`/${slug}/${
+                        data.chapters.findIndex((ch: any) => ch.slug === chapter) > 0 
+                            ? data.chapters[data.chapters.findIndex((ch: any) => ch.slug === chapter) - 1].slug 
+                            : ''
+                    }`}><span>Chap sau</span><i className="bi bi-arrow-right-short"></i></Link>
                 </section>
             </div>
          </section>

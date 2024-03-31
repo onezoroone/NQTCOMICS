@@ -18,7 +18,7 @@ function Ranking({dailyComics, weeklyComics, monthlyComics } : {dailyComics: any
                 <div className={styles.itemRanking} key={index} title={item.title}>
                     <Link href={`/${item.slug}`}><Image width={70} height={100} src={item.thumbnail} alt={item.title} /></Link>
                     <div className={styles.bodycontentRanking}>
-                        <Link href={`/${item.slug}`}><h5 className="text-black dark:text-white">{item.title}</h5></Link>
+                        <Link href={`/${item.slug}`}><h5 className={`text-black dark:text-white ${styles.hover1}`}>{item.title}</h5></Link>
                         <div style={{fontSize:'15px'}}>
                             {item.genres.map((item: any)=>(
                                 <span key={item.name}>
@@ -47,7 +47,7 @@ function Ranking({dailyComics, weeklyComics, monthlyComics } : {dailyComics: any
                     <div className={styles.itemRanking} key={index} title={item.title}>
                     <Link href={`/${item.slug}`}><Image width={70} height={100} src={item.thumbnail} alt={item.title} /></Link>
                     <div className={styles.bodycontentRanking}>
-                        <Link href={`/${item.slug}`}><h5 className="text-black dark:text-white">{item.title}</h5></Link>
+                        <Link href={`/${item.slug}`}><h5 className={`text-black dark:text-white ${styles.hover1}`}>{item.title}</h5></Link>
                         <div style={{fontSize:'15px'}}>
                             {item.genres.map((genre: any)=>(
                                 <span key={genre.name}>
@@ -76,7 +76,7 @@ function Ranking({dailyComics, weeklyComics, monthlyComics } : {dailyComics: any
                     <div className={styles.itemRanking} key={index} title={item.title}>
                     <Link href={`/${item.slug}`}><Image width={70} height={100} src={item.thumbnail} alt={item.title} /></Link>
                     <div className={styles.bodycontentRanking}>
-                        <Link href={`/${item.slug}`}><h5 className="text-black dark:text-white">{item.title}</h5></Link>
+                        <Link href={`/${item.slug}`}><h5 className={`text-black dark:text-white ${styles.hover1}`}>{item.title}</h5></Link>
                         <div style={{fontSize:'15px'}}>
                             {item.genres.map((genre: any)=>(
                                 <span key={genre.name}>
