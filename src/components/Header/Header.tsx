@@ -108,6 +108,16 @@ function HeaderGuest() {
             });
         }
     }
+    const handleLogout = async () => {
+        await axiosClient.post("/api/auth/v1/logout", {
+            withCredentials: true
+        })
+        .then(() => {
+            localStorage.removeItem('token');
+            setLogin(false);
+        })
+    }
+
     const handleChangeTheme = () => {
         if(isDark){
             document.documentElement.classList.remove('dark');
@@ -172,7 +182,7 @@ function HeaderGuest() {
                                             <li className="py-1"><Link href="/">Hồ sơ</Link></li>
                                             <li className="py-1"><Link href="/">Đã xem</Link></li>
                                             <li className="py-1"><Link href="/">Đã theo dõi</Link></li>
-                                            <li className="py-1"><Link href="/">Đăng xuất</Link></li>
+                                            <li className="py-1"><button onClick={handleLogout} className="border-0">Đăng xuất</button></li>
                                         </ul>
                                     </div>}
                                 </div>
