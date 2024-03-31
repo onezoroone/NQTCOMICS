@@ -42,7 +42,7 @@ function LayoutAdmin({ children } : { children: React.ReactNode }) {
     const sidebar: SidebarItem[] = [
         {
             name: 'Trang điều khiển',
-            link: 'dashboard',
+            link: '/admin/dashboard',
             icon: "bi-house-gear-fill"
         },
         {
